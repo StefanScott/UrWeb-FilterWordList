@@ -53,17 +53,6 @@ fun main () =
             rows' <- rpc (filterRows theFilter' theOffset') ; 
             set rows rows'
         }/>
-      <ctextbox 
-        source={theFilter}
-        onkeyup={
-          fn _ =>
-            set theOffset 0 ;
-            theFilter' <- get theFilter ;
-            theOffset' <- get theOffset ;
-            rows' <- rpc (filterRows theFilter' theOffset') ; 
-            set rows rows'
-        }
-      />
       <button 
         value=">" 
         onclick={
@@ -75,6 +64,17 @@ fun main () =
             rows' <- rpc (filterRows theFilter' theOffset') ; 
             set rows rows'
         }/>
+      <ctextbox 
+        source={theFilter}
+        onkeyup={
+          fn _ =>
+            set theOffset 0 ;
+            theFilter' <- get theFilter ;
+            theOffset' <- get theOffset ;
+            rows' <- rpc (filterRows theFilter' theOffset') ; 
+            set rows rows'
+        }
+      />
       <br/>
       <dyn signal={
         rows' <- signal rows ; 
