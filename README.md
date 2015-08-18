@@ -2,7 +2,7 @@
 
 This is a simple Ur/Web example which lets the user type lowercase letters [a-z]* into a `<ctextbox>` to instantly filter a table of 192,425 English words, using the SQL `LIKE` operator, displaying up to 50 rows at a time.
 
-You can use the `\copy` command in `psql`, to add the words.
+You can use the `\copy` command in `psql` to add the words.
 
 The file `script.txt` contains all the Linux and psql commands to:
 
