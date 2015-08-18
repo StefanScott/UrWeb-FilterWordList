@@ -1,0 +1,50 @@
+# compile the program
+# first change the values for user and password below!
+
+urweb -dbms postgres -db "host=localhost port=5432 user=scott password='pw' dbname=filter_word_list" filterWordList
+
+# optional
+dropdb filter_word_list
+
+# create the database
+createdb filter_word_list
+
+# run the script generated during the compile
+psql -f filter_word_list.sql filter_word_list
+
+# use psql copy to insert the word list:
+
+psql filter_word_list
+
+# then, within psql, run the following:
+
+# first, verify that file word-list-extra-large.txt is in your current directory
+\! ls
+
+# then, copy file word-list-extra-large.txt to the table uw_filterwordlist_thing 
+
+\copy uw_filterwordlist_thing (uw_nam) FROM 'word-list-extra-large.txt';
+
+# exit psql
+\q
+
+# minimal "server block" for nginx - change the server names below!
+
+server {
+  listen 80;
+  server_name 
+    personalenglish.org
+    www.personalenglish.org
+    *.personalenglish.org;
+
+  location / {
+    proxy_pass http://127.0.0.1:8080/;
+  }
+}
+
+# run the program (using nohup for "no hang-up")
+
+nohup ./filterWordList.exe &
+
+# launch a browser, and point it to:
+http://personalenglish.org/FilterWordList/main
