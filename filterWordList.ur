@@ -38,9 +38,21 @@ fun main () =
         <coption value="Saisissez des lettres [a-z]* pour filtrer une liste de 192 425 mots anglais.">FR</coption>
         <coption value="Digite letras [a-z]* para filtrar uma lista de 192.425 palavras em inglês.">PT</coption>
       </cselect>
-      <a href="https://github.com/StefanScott/UrWeb-FilterWordList">GitHub</a>
-      <br/>
       <dyn signal={theLang' <- signal theLang; return <xml>{[theLang']}</xml>}/>
+      <br/>
+      <br/>
+      <ctextbox 
+        source={theFilter}
+        onkeyup={
+          fn _ =>
+            set theOffset 0 ;
+            theFilter' <- get theFilter ;
+            theOffset' <- get theOffset ;
+            rows' <- rpc (filterRows theFilter' theOffset') ; 
+            set rows rows'
+        }
+      />
+      <br/>
       <br/>
       <button 
         value="<" 
@@ -64,17 +76,6 @@ fun main () =
             rows' <- rpc (filterRows theFilter' theOffset') ; 
             set rows rows'
         }/>
-      <ctextbox 
-        source={theFilter}
-        onkeyup={
-          fn _ =>
-            set theOffset 0 ;
-            theFilter' <- get theFilter ;
-            theOffset' <- get theOffset ;
-            rows' <- rpc (filterRows theFilter' theOffset') ; 
-            set rows rows'
-        }
-      />
       <br/>
       <dyn signal={
         rows' <- signal rows ; 

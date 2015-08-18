@@ -1,5 +1,4 @@
 database dbname=filter_word_list
 sql filter_word_list.sql
-allow url https://github.com/StefanScott/UrWeb-FilterWordList
 
 filterWordList
